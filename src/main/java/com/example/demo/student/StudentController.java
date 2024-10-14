@@ -20,21 +20,27 @@ public class StudentController {
         return studentService.getStudents();
     }
 
+    @GetMapping(value = "email/{userEmail}")
+    public List<Student> getByEmail(@PathVariable(value = "userEmail", required = true) String userEmail){
+
+        return studentService.findStudentsByEmail(userEmail);
+    }
+
     @PostMapping
     public void registerNewStudent(@RequestBody Student student){
 
-        studentService.addNewStudent(student);
+        studentService.addOrSaveStudent(student);
     }
 
     @PutMapping
     public void updateStudent(@RequestBody Student student){
 
-        studentService.addNewStudent(student);
+        studentService.addOrSaveStudent(student);
     }
 
-    @GetMapping(value = "email/{userEmail}")
-    public List<Student> getByEmail(@PathVariable(value = "userEmail", required = true) String userEmail){
+    @DeleteMapping(value = "{id}")
+    public void deleteStudent(@PathVariable(value = "id", required = true) Long id){
 
-        return studentService.findByEmail(userEmail);
+        studentService.deleteStudent(id);
     }
 }

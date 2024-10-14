@@ -19,7 +19,12 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public void addNewStudent(Student student){
+    public List<Student> findStudentsByEmail(String email){
+
+        return studentRepository.findStudentsByEmail(email);
+    }
+
+    public void addOrSaveStudent(Student student){
 
         Optional<Student> studentByEmail = studentRepository.checkStudentByEmail(student.getEmail());
         if (studentByEmail.isPresent()){
@@ -29,8 +34,10 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public List<Student> findByEmail(String email){
 
-        return studentRepository.findStudentsByEmail(email);
+
+    public void deleteStudent(Long id){
+
+        studentRepository.deleteById(id);
     }
 }
